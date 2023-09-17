@@ -2,9 +2,36 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("maven-publish")
+}
+
+task("androidSourcesJar", Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("mavenJava") {
+                groupId = "com.github.awxkee"
+                artifactId = "avif-coder-glide"
+                version = "1.4.2"
+                from(components.findByName("release"))
+//                artifact("androidSourcesJar")
+            }
+        }
+    }
 }
 
 android {
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
     namespace = "com.awxkee.avif.glide"
     compileSdk = 33
 
