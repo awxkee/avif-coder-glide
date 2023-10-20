@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         //https://wh.aimuse.online/creatives/IMUSE_03617fe2db82a584166_27/TT_a9d21ff1061d785347935fef/68f06252.avif
         //https://wh.aimuse.online/preset/federico-beccari.avif
         // https://wh.aimuse.online/preset/avif10bit.avif
