@@ -16,7 +16,7 @@ afterEvaluate {
             create<MavenPublication>("mavenJava") {
                 groupId = "com.github.awxkee"
                 artifactId = "avif-coder-glide"
-                version = "1.4.2"
+                version = "1.5.4"
                 from(components.findByName("release"))
 //                artifact("androidSourcesJar")
             }
@@ -71,5 +71,5 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
-    api("com.github.awxkee:avif-coder:1.5.3")
+    api("com.github.awxkee:avif-coder:1.5.4")
 }
