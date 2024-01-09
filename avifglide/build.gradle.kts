@@ -33,7 +33,7 @@ android {
     }
 
     namespace = "com.awxkee.avif.glide"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
