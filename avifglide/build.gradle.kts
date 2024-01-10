@@ -71,5 +71,5 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
-    api("com.github.awxkee:avif-coder:1.5.9")
+    api("com.github.awxkee:avif-coder:1.5.10")
 }
