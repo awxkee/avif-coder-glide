@@ -38,10 +38,10 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.util.ByteBufferUtil
 import java.io.InputStream
 
-class AvifCoderStreamDecoder(private val context: Context, private val bitmapPool: BitmapPool) :
+class AvifCoderStreamDecoder(private val bitmapPool: BitmapPool) :
     ResourceDecoder<InputStream, Bitmap> {
 
-    private val byteBufferDecoder = AvifCoderByteBufferDecoder(context, bitmapPool)
+    private val byteBufferDecoder = AvifCoderByteBufferDecoder(bitmapPool)
 
     override fun handles(source: InputStream, options: Options): Boolean {
         val bb = ByteBufferUtil.fromStream(source)

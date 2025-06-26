@@ -43,10 +43,10 @@ class AvifCoderGlideModule : LibraryGlideModule() {
         // Add the Avif ResourceDecoders before any of the available system decoders. This ensures that
         // the integration will be preferred for Avif images.
         val byteBufferBitmapDecoder =
-            AvifCoderByteBufferDecoder(context.applicationContext, glide.bitmapPool)
+            AvifCoderByteBufferDecoder(glide.bitmapPool)
         registry.prepend(ByteBuffer::class.java, Bitmap::class.java, byteBufferBitmapDecoder)
         val streamBitmapDecoder =
-            AvifCoderStreamDecoder(context.applicationContext, glide.bitmapPool)
+            AvifCoderStreamDecoder(glide.bitmapPool)
         registry.prepend(InputStream::class.java, Bitmap::class.java, streamBitmapDecoder)
     }
 }

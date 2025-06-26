@@ -44,10 +44,10 @@ import com.radzivon.bartoshyk.avif.coder.PreferredColorConfig
 import com.radzivon.bartoshyk.avif.coder.ScaleMode
 import java.nio.ByteBuffer
 
-class AvifCoderByteBufferDecoder(private val context: Context, private val bitmapPool: BitmapPool) :
+class AvifCoderByteBufferDecoder(private val bitmapPool: BitmapPool) :
     ResourceDecoder<ByteBuffer, Bitmap> {
 
-    private val coder = HeifCoder(context)
+    private val coder = HeifCoder()
 
     override fun handles(source: ByteBuffer, options: Options): Boolean {
         return coder.isSupportedImage(source)
@@ -71,15 +71,16 @@ class AvifCoderByteBufferDecoder(private val context: Context, private val bitma
             idealHeight = -1
         }
 
-        val preferredColorConfig: PreferredColorConfig = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && allowedHardwareConfig) {
-            PreferredColorConfig.HARDWARE
-        } else {
-            if (options[Downsampler.DECODE_FORMAT] === DecodeFormat.PREFER_RGB_565) {
-                PreferredColorConfig.RGB_565
+        val preferredColorConfig: PreferredColorConfig =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && allowedHardwareConfig) {
+                PreferredColorConfig.HARDWARE
             } else {
-                PreferredColorConfig.DEFAULT
+                if (options[Downsampler.DECODE_FORMAT] === DecodeFormat.PREFER_RGB_565) {
+                    PreferredColorConfig.RGB_565
+                } else {
+                    PreferredColorConfig.DEFAULT
+                }
             }
-        }
 
         val bitmap =
             coder.decodeSampled(src, idealWidth, idealHeight, preferredColorConfig, ScaleMode.FIT)
