@@ -1,8 +1,65 @@
+import com.vanniktech.maven.publish.AndroidMultiVariantLibrary
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("maven-publish")
+    id("signing")
+    id("com.vanniktech.maven.publish") version "0.34.0"
+}
+
+mavenPublishing {
+    if (System.getenv("PUBLISH_STATE") == "Release") {
+        signAllPublications()
+    }
+}
+
+mavenPublishing {
+    configure(
+        AndroidMultiVariantLibrary(
+            sourcesJar = true,
+            publishJavadocJar = true,
+        )
+    )
+
+    if (System.getenv("PUBLISH_STATE") == "Release") {
+        coordinates("io.github.awxkee", "avif-coder-glide", System.getenv("VERSION_NAME") ?: "0.0.10")
+    } else {
+        coordinates("io.github.awxkee", "avif-coder-glide", "0.0.10")
+    }
+
+    pom {
+        name.set("AVIF Coder")
+        description.set("AVIF encoder/decoder for Android")
+        inceptionYear.set("2025")
+        url.set("https://github.com/awxkee/avif-coder")
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+            license {
+                name.set("The 3-Clause BSD License")
+                url.set("https://opensource.org/license/bsd-3-clause")
+                description.set("https://opensource.org/license/bsd-3-clause")
+            }
+        }
+        developers {
+            developer {
+                id.set("awxkee")
+                name.set("Radzivon Bartoshyk")
+                url.set("https://github.com/awxkee")
+                email.set("radzivon.bartoshyk@proton.me")
+            }
+        }
+        scm {
+            url.set("https://github.com/awxkee/avif-coder-glide")
+            connection.set("scm:git:git@github.com:awxkee/avif-coder-glide.git")
+            developerConnection.set("scm:git:ssh://git@github.com/awxkee/avif-coder-glide.git")
+        }
+    }
 }
 
 task("androidSourcesJar", Jar::class) {
