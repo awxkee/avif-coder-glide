@@ -62,25 +62,6 @@ mavenPublishing {
     }
 }
 
-task("androidSourcesJar", Jar::class) {
-    archiveClassifier.set("sources")
-    from(android.sourceSets.getByName("main").java.srcDirs)
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("mavenJava") {
-                groupId = "com.github.awxkee"
-                artifactId = "avif-coder-glide"
-                version = "2.2.0"
-                from(components.findByName("release"))
-//                artifact("androidSourcesJar")
-            }
-        }
-    }
-}
-
 android {
     publishing {
         singleVariant("release") {
