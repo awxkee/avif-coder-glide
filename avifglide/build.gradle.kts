@@ -2,15 +2,15 @@ import com.vanniktech.maven.publish.AndroidMultiVariantLibrary
 
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
     id("maven-publish")
     id("signing")
-    id("com.vanniktech.maven.publish") version "0.34.0"
+    id("com.google.devtools.ksp")
+    id("com.vanniktech.maven.publish") version "0.36.0"
 }
 
 mavenPublishing {
     if (System.getenv("PUBLISH_STATE") == "Release") {
+        publishToMavenCentral()
         signAllPublications()
     }
 }
@@ -73,7 +73,7 @@ afterEvaluate {
             create<MavenPublication>("mavenJava") {
                 groupId = "com.github.awxkee"
                 artifactId = "avif-coder-glide"
-                version = "1.6.0"
+                version = "2.2.0"
                 from(components.findByName("release"))
 //                artifact("androidSourcesJar")
             }
@@ -90,7 +90,7 @@ android {
     }
 
     namespace = "com.awxkee.avif.glide"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -112,17 +112,20 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+
+    kotlin {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
     }
 }
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.3.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
 
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
-    api("com.github.awxkee:avif-coder:2.1.4")
+    implementation("com.github.bumptech.glide:glide:5.0.5")
+    ksp("com.github.bumptech.glide:ksp:5.0.5")
+    api("io.github.awxkee:avif-coder:2.2.0")
 }

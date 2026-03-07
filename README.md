@@ -11,16 +11,13 @@ Supported decoding in all necessary pixel formats in Android and avoids android 
 
 Just add app glide module in your main project and all will start work automatically
 
-# Add Jitpack repository
 
-```groovy
-repositories {
-    maven { url "https://jitpack.io" }
-}
-```
+### How to add
 
-```groovy
-implementation 'com.github.awxkee:avif-coder-glide:1.7.4' // or any version above picker from release tags
+Note versions prior 2.2.0 were published to jitpack, but this way is outdated and no longer supported.
+
+```kotlin
+implementation("io.github.awxkee:2.2.0") // or any version above picker from release tags
 ```
 
 # Disclaimer
