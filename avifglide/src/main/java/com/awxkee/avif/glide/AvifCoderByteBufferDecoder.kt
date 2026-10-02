@@ -28,7 +28,6 @@
 
 package com.awxkee.avif.glide
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
 import com.bumptech.glide.load.DecodeFormat
@@ -39,7 +38,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapResource
 import com.bumptech.glide.load.resource.bitmap.Downsampler
 import com.bumptech.glide.request.target.Target
-import com.radzivon.bartoshyk.avif.coder.HeifCoder
+import com.radzivon.bartoshyk.avif.coder.Coder
 import com.radzivon.bartoshyk.avif.coder.PreferredColorConfig
 import com.radzivon.bartoshyk.avif.coder.ScaleMode
 import java.nio.ByteBuffer
@@ -47,7 +46,7 @@ import java.nio.ByteBuffer
 class AvifCoderByteBufferDecoder(private val bitmapPool: BitmapPool) :
     ResourceDecoder<ByteBuffer, Bitmap> {
 
-    private val coder = HeifCoder()
+    private val coder = Coder()
 
     override fun handles(source: ByteBuffer, options: Options): Boolean {
         return coder.isSupportedImage(source)
